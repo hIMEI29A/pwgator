@@ -1,0 +1,10 @@
+# Folders
+/bin
+/notes
+/vendor
+
+# Files
+main
+pwghen
+prebuild.sh
+
