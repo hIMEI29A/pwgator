@@ -19,7 +19,7 @@ import (
 	"os"
 
 	docopt "github.com/docopt/docopt-go"
-	gator "github.com/hIMEI29A/pwgator/pwgator"
+	pw "github.com/hIMEI29A/pwgator/pwgator"
 )
 
 var version = "v0.0.1-alpha"
@@ -31,13 +31,13 @@ Usage:
   pwgator [LENGTH] [-s | --strong] [-p | --phrase]
 
 Arguments:
-  LENGTH               Secret length (OPTIONAL). Default is 8 for word, 2 for phrase.
+  LENGTH               Secret's length (OPTIONAL). Default is 8 for word, 2 for phrase.
 
 Options:
   -h --help            Show this screen.
   --version            Show version.
   -s --strong          Non-humanized genaration.
-  -p --phrases         Generate passphrases.
+  -p --phrase         Generate passphrases.
 
 `
 
@@ -46,45 +46,40 @@ func main() {
 	fmt.Println(os.Args[1:])
 	opts, _ := docopt.ParseArgs(usage, os.Args[1:], version)
 
-	var app *gator.App
-
-	var conf struct {
-		Length  int
-		Phrases bool
-		Strong  bool
+	for i := range opts {
+		fmt.Println(i, opts[i])
 	}
 
-	opts.Bind(&conf)
+	var (
+		length  int
+		phrases int
+		strong  bool
+	)
 
-	fmt.Println(conf.Length)
+	switch {
+	case opts["--phrase"]:
+		if l := opts["LENGTH"]; l == nil {
+			length = 2
+		} else {
+			length = pw.AToi(l.(string))
+		}
 
-	if conf.Phrases && conf.Length == 0 {
-		app = gator.NewApp(1, 2, conf.Strong)
+		phrases = 1
+		strong = opts["--strong"].(bool)
+
+	default:
+		if l := opts["LENGTH"]; l == nil {
+			length = 8
+		} else {
+			length = pw.AToi(l.(string))
+		}
+
+		phrases = 0
+		strong = opts["--strong"].(bool)
+
 	}
-
-	if conf.Phrases && conf.Length != 0 {
-		app = gator.NewApp(1, conf.Length, conf.Strong)
-	}
-
-	if !conf.Phrases && conf.Length == 0 {
-		app = gator.NewApp(0, 8, conf.Strong)
-	}
-
-	if !conf.Phrases && conf.Length != 0 {
-		app = gator.NewApp(0, conf.Length, conf.Strong)
-	}
-
-	fmt.Println(conf.Length)
-
+	app := pw.NewApp(phrases, length, strong)
 	app.Generate()
-	fmt.Println(app.String())
 
+	fmt.Println(app.String())
 }
-
-/*
-	app := gator.NewApp(0, 8, false)
-
-	app.Generate()
-
-	fmt.Println(app.String())
-}*/

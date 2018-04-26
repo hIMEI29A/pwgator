@@ -62,6 +62,13 @@ func ErrFatal(err error) {
 	}
 }
 
+func AToi(a string) int {
+	r, err := strconv.Atoi(a)
+	ErrFatal(err)
+
+	return r
+}
+
 func genstrong(length int) string {
 	var chars string
 
