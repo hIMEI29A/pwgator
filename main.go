@@ -44,10 +44,6 @@ Options:
 func main() {
 	opts, _ := docopt.ParseArgs(usage, os.Args[1:], version)
 
-	for i := range opts {
-		fmt.Println(i, opts[i])
-	}
-
 	var (
 		length  int
 		phrases int
