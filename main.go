@@ -16,30 +16,75 @@ package main
 
 import (
 	"fmt"
+	"os"
 
-	gen "github.com/hIMEI29A/pwghen/libpwghen"
-	//"github.com/docopt/docopt-go"
+	docopt "github.com/docopt/docopt-go"
+	gator "github.com/hIMEI29A/pwgator/pwgator"
 )
 
-func main() {
-	secret := gen.NewSecret()
-	fmt.Println(secret.PassWord(4))
-	fmt.Println(secret.PassPhrase(3))
-}
+var version = "v0.0.1-alpha"
 
-/*
-var usage = `gopwgen - humanized passwords generator.
+var usage = `pwgator - humanized passphrases generator.
 
 Usage:
-  gopwgen [-h | --help] | [--version]
-  gopwgen [-r] LENGTH
+  pwgator [-h | --help] | [--version]
+  pwgator [LENGTH] [-s | --strong] [-p | --phrase]
+
+Arguments:
+  LENGTH               Secret length (OPTIONAL). Default is 8 for word, 2 for phrase.
 
 Options:
   -h --help            Show this screen.
   --version            Show version.
-  --interactive        Launch interactive master
-  -o --output          Save report to file
-  -j                   JSONed output
+  -s --strong          Non-humanized genaration.
+  -p --phrases         Generate passphrases.
 
 `
-*/
+
+func main() {
+
+	fmt.Println(os.Args[1:])
+	opts, _ := docopt.ParseArgs(usage, os.Args[1:], version)
+
+	var app *gator.App
+
+	var conf struct {
+		Length  int
+		Phrases bool
+		Strong  bool
+	}
+
+	opts.Bind(&conf)
+
+	fmt.Println(conf.Length)
+
+	if conf.Phrases && conf.Length == 0 {
+		app = gator.NewApp(1, 2, conf.Strong)
+	}
+
+	if conf.Phrases && conf.Length != 0 {
+		app = gator.NewApp(1, conf.Length, conf.Strong)
+	}
+
+	if !conf.Phrases && conf.Length == 0 {
+		app = gator.NewApp(0, 8, conf.Strong)
+	}
+
+	if !conf.Phrases && conf.Length != 0 {
+		app = gator.NewApp(0, conf.Length, conf.Strong)
+	}
+
+	fmt.Println(conf.Length)
+
+	app.Generate()
+	fmt.Println(app.String())
+
+}
+
+/*
+	app := gator.NewApp(0, 8, false)
+
+	app.Generate()
+
+	fmt.Println(app.String())
+}*/

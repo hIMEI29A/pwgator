@@ -14,11 +14,10 @@
 
 package pwgator
 
-import (
-	"fmt"
+const (
+	MAX_GOROUTINES = 100
+	BUFFSIZE       = 200
 )
-
-const MAX_GOROUTINES = 100
 
 const (
 	PASSWORD APP_T = iota
@@ -31,16 +30,55 @@ type App struct {
 	Generated []string
 	AppType   APP_T
 	IntVal    int
+	Strong    bool
 }
 
-func NewApp(t, val int) *App {
+func NewApp(t, val int, s bool) *App {
 	app := &App{}
 	app.AppType = APP_T(t)
 	app.IntVal = val
+	app.Strong = s
 
 	return app
 }
 
-func (a *App) Generate() []string {
+func (a *App) Generate() {
+	var generated []string
+	var chanString = make(chan string, BUFFSIZE)
 
+	for i := 0; i < MAX_GOROUTINES; i++ {
+		go func(ch chan string) {
+			var s string
+			secret := NewSecret()
+
+			if a.AppType == PASSWORD {
+				s = secret.PassWord(a.IntVal, a.Strong)
+			} else {
+				s = secret.PassPhrase(a.IntVal, a.Strong)
+			}
+
+			ch <- s
+		}(chanString)
+	}
+
+	for len(generated) < MAX_GOROUTINES {
+		select {
+		case recvd := <-chanString:
+			generated = append(generated, recvd)
+
+		default:
+		}
+	}
+
+	a.Generated = generated
+}
+
+func (a *App) String() string {
+	var s string
+
+	for i := range a.Generated {
+		s = s + a.Generated[i] + "\n"
+	}
+
+	return s
 }

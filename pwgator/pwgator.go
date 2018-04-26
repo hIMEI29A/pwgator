@@ -15,20 +15,7 @@
 package pwgator
 
 import (
-	//"fmt"
-	"log"
-	"math/rand"
-	"strconv"
 	"strings"
-	"time"
-	"unicode"
-)
-
-const COIN_MAX = 100000
-
-const (
-	BASE_S int32 = 32
-	BASE_E       = 128
 )
 
 var Leet = map[string][]string{
@@ -51,99 +38,6 @@ func leet(pass string) string {
 			values := Leet[string(pass[i])]
 			trand := ranint(len(values))
 			newpass = newpass + values[trand]
-		} else {
-			newpass = newpass + string(pass[i])
-		}
-	}
-
-	return newpass
-}
-
-func ranint(num int) int {
-	s := rand.NewSource(time.Now().UnixNano())
-	r := rand.New(s)
-	random := r.Intn(num)
-
-	return random
-}
-
-func ran(num int32) int32 {
-	s := rand.NewSource(time.Now().UnixNano())
-	r := rand.New(s)
-	random := r.Int31n(num)
-
-	return random
-}
-
-func cran() int32 {
-	cRan := ran(BASE_E)
-
-	if cRan > BASE_S {
-		return cRan
-	} else {
-		cRan = cran()
-	}
-	return cRan
-}
-
-func ErrFatal(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func genstrong(length int) string {
-	var chars string
-
-	for j := 0; j < length; j++ {
-		char := strconv.QuoteRuneToASCII(cran())
-		uchar, err := strconv.Unquote(char)
-		ErrFatal(err)
-		chars = chars + uchar
-	}
-
-	return chars
-}
-
-func coin() bool {
-	value := false
-
-	r := ranint(COIN_MAX)
-
-	if r >= COIN_MAX/2 {
-		value = true
-	}
-
-	return value
-}
-
-func cointh() bool {
-	value := false
-
-	r := ranint(COIN_MAX)
-
-	if r%3 == 0 {
-		value = true
-	}
-
-	return value
-}
-
-func down(value string) string {
-	var s string
-	for i := range value {
-		s = s + string(unicode.ToLower(rune(value[i])))
-	}
-
-	return s
-}
-
-func downize(pass string) string {
-	var newpass string
-
-	for i := range pass {
-		if c := coin(); c {
-			newpass = newpass + down(string(pass[i]))
 		} else {
 			newpass = newpass + string(pass[i])
 		}
@@ -191,7 +85,6 @@ type Secret struct {
 
 func NewSecret() *Secret {
 	secret := &Secret{}
-	//secret.Length = length
 
 	return secret
 }
@@ -270,7 +163,6 @@ func (s *Secret) Tune(val string) string {
 }
 
 func (s *Secret) Parse() string {
-	//var word string
 	newtokens := s.Tokens
 
 	for i := range newtokens {
@@ -309,17 +201,31 @@ func (s *Secret) generateTokens(length int) {
 	s.Tokens = secret
 }
 
-func (s *Secret) PassWord(length int) string {
-	s.generateTokens(length)
-	return s.Parse()
+func (s *Secret) PassWord(length int, strong bool) string {
+	var p string
+
+	if !strong {
+		s.generateTokens(length)
+		p = s.Parse()
+	} else {
+		p = genstrong(length)
+	}
+
+	return p
 }
 
-func (s *Secret) PassPhrase(words int) string {
-	template := GetPhraseTemplate(words)
+func (s *Secret) PassPhrase(words int, strong bool) string {
 	var phrase string
+	template := GetPhraseTemplate(words)
 
-	for i := range template {
-		phrase = phrase + SPACE + s.PassWord(template[i])
+	if !strong {
+		for i := range template {
+			phrase = phrase + SPACE + s.PassWord(template[i], strong)
+		}
+	} else {
+		for i := range template {
+			phrase = phrase + SPACE + genstrong(template[i])
+		}
 	}
 
 	return strings.TrimPrefix(phrase, SPACE)
