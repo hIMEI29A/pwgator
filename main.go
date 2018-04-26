@@ -42,8 +42,6 @@ Options:
 `
 
 func main() {
-
-	fmt.Println(os.Args[1:])
 	opts, _ := docopt.ParseArgs(usage, os.Args[1:], version)
 
 	for i := range opts {

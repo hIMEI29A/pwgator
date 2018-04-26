@@ -7,4 +7,5 @@
 main
 pwghen
 prebuild.sh
+/build/amd64/pwgator/*.deb
 
