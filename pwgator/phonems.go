@@ -96,6 +96,8 @@ var Diphtongs = []string{
 	"AO",
 	"DZ",
 	"MB",
+	"MH",
+	"OI",
 	"OA",
 	"OH",
 	"OO",
