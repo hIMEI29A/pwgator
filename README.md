@@ -30,8 +30,7 @@ Get current build at [release page](https://github.com/hIMEI29A/pwgator/releases
 Or run
 
 	wget https://github.com/hIMEI29A/pwgator/releases/download/\
-    v0.0.1-alpha/pwgator-v0.0.1-alpha-amd64.deb && sudo dpkg -i pwgator-v0.0.1-alpha-amd64.deb
-
+	v0.0.1-alpha/pwgator-0.0.1-alpha-amd64.deb && sudo dpkg -i pwgator-0.0.1-alpha-amd64.deb
 
 ##### As package
 
