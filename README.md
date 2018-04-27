@@ -41,7 +41,14 @@ Or run
 
 	wget https://github.com/hIMEI29A/pwgator/releases/download/\
 	v0.0.2-alpha/pwgator-0.0.2-alpha-amd64.deb && sudo dpkg -i pwgator-0.0.2-alpha-amd64.deb
-		
+
+Or, if you have Golang installed,
+
+```sh
+go get github.com/hIMEI29A/pwgator/pwgator
+
+go install github.com/hIMEI29A/pwgator
+```
 
 ##### As package
 
@@ -121,7 +128,7 @@ import (
 
 **Passwords:**
 
-_humanised_
+_humanized_
 
 	Fo5h!po
 	mH*nGon
@@ -172,7 +179,7 @@ _humanized_
 	*5a e1mHI NUdUm
 	R16 y3pee Dz0Od
 
--strong_
+_strong_
 
 	mM47d| q{5Ls
 	_+Of!% &V1c&
