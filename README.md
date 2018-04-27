@@ -130,7 +130,7 @@ Passphrases with 4 words length and in strong mode:
 
 	pwgator 4 -p -s
 	
-To use **pwgen** as packege in your applications, write something like this:
+To use **pwgator** as package in your applications, write something like this:
 
 ```go
 package main
@@ -148,8 +148,8 @@ import (
 		
 		strong := true
 		
-		// Generate new pwgator with phrases boolean option, 
-		//int length and boolean strong option
+		// Generate new pwgator with "phrases" boolean option, 
+		//int length and "strong" boolean option
 		app := pwgator.NewApp(phrases, length, strong)
 		app.Generate()
 
