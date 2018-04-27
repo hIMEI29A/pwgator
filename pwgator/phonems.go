@@ -18,26 +18,30 @@ import (
 	"fmt"
 )
 
-// TOKEN_T
-
+// TOKEN_T is an enum for token types
 type TOKEN_T int
 
+// Enumerated token types
 const (
 	VOWEL TOKEN_T = iota
 	DIPTHONG
 	CONSONANT
 )
 
+// Tokens holds string representations of TOKEN_T
 var Tokens = [...]string{
 	"VOWEL",
 	"DIPTHONG",
 	"CONSONANT",
 }
 
+// String stringizes TOKEN_T's
 func (t TOKEN_T) String() string {
 	return fmt.Sprintf("%s", Tokens[t])
 }
 
+// TokenNames returns string values containing variable for each token type:
+// Consonants for CONSONANT, Diphtongs for DIPTHONG, Vowels for VOWEL
 func (t TOKEN_T) TokenNames() []string {
 	var names []string
 
@@ -55,10 +59,10 @@ func (t TOKEN_T) TokenNames() []string {
 	return names
 }
 
-// DIPHTONG_T
-
+// DIPHTHONG_T is an enum for two letter string literals
 type DIPTHONG_T int
 
+// Enumerated two letter string literals
 const (
 	AE DIPTHONG_T = iota
 	AH
@@ -83,6 +87,7 @@ const (
 	TH
 )
 
+// Diphtongs holds string representations of DIPTHONG_T
 var Diphtongs = []string{
 	"AE",
 	"AH",
@@ -107,18 +112,20 @@ var Diphtongs = []string{
 	"TH",
 }
 
+// String stringizes DIPTHONG_T's
 func (d DIPTHONG_T) String() string {
 	return fmt.Sprintf("%s", Diphtongs[d])
 }
 
+// diftong_t returns random DIPTHONG_T
 func diftong_t() DIPTHONG_T {
 	return DIPTHONG_T(ranint(len(Diphtongs)))
 }
 
-// VOWEL_T
-
+// VOWEL_T is an enum for vowels representing string literals
 type VOWEL_T int
 
+// Enumerated vowels representing string literals
 const (
 	A VOWEL_T = iota
 	O
@@ -127,6 +134,7 @@ const (
 	E
 )
 
+// Vowels holds string representations of VOWEL_T
 var Vowels = []string{
 	"A",
 	"O",
@@ -135,10 +143,12 @@ var Vowels = []string{
 	"E",
 }
 
+// String stringizes VOWEL_T's
 func (v VOWEL_T) String() string {
 	return fmt.Sprintf("%s", Vowels[v])
 }
 
+// Vowel_t checks if given string is a string representation of VOWEL_T
 func Vowel_t(char string) bool {
 	check := false
 
@@ -152,14 +162,15 @@ func Vowel_t(char string) bool {
 	return check
 }
 
+// vowel_t returns random VOWEL_T
 func vowel_t() VOWEL_T {
 	return VOWEL_T(ranint(len(Vowels)))
 }
 
-// CONSONANT_T
-
+// CONSONANT_T is an enum for consonants representing string literals
 type CONSONANT_T int
 
+// Enumerated consonants representing string literals
 const (
 	B CONSONANT_T = iota
 	C
@@ -185,6 +196,7 @@ const (
 	ZZ // special for asterisk "*" as random delim
 )
 
+// Consonants holds string representations of CONSONANT_T
 var Consonants = []string{
 	"B",
 	"C",
@@ -210,10 +222,12 @@ var Consonants = []string{
 	"*",
 }
 
+// String stringizes CONSONANT_T's
 func (c CONSONANT_T) String() string {
 	return fmt.Sprintf("%s", Consonants[c])
 }
 
+// Consonant_t checks if given string is a string representation of CONSONANT_T
 func Consonant_t(char string) bool {
 	check := false
 
@@ -227,6 +241,7 @@ func Consonant_t(char string) bool {
 	return check
 }
 
+// consonant_t returns random CONSONANT_T
 func consonant_t() CONSONANT_T {
 	return CONSONANT_T(ranint(len(Consonants)))
 }

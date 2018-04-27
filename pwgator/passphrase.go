@@ -42,6 +42,7 @@ var phrases = map[int][][]int{
 	4: fourWords,
 }
 
+// GetPhraseTemplate returns one of passphrase template's with given length.
 func GetPhraseTemplate(num int) []int {
 	var template []int
 

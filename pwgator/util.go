@@ -22,7 +22,7 @@ import (
 	"unicode"
 )
 
-const COIN_MAX = 100000
+const COIN_MAX = 10000
 
 const (
 	BASE_S int32 = 32

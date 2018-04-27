@@ -18,18 +18,20 @@ import (
 	"strings"
 )
 
+// Leet is a map for string literals and its leet-coded aliases
 var Leet = map[string][]string{
-	"A":  {"a", "@", "*", "A"},
-	"E":  {"e", "3", "E"},
-	"S":  {"s", "$", "5", "S"},
-	"O":  {"o", "0", "O"},
-	"EE": {"ee", "33"},
-	"T":  {"7", "t", "T"},
-	"I":  {"i", "!", "1", "I"},
-	"B":  {"b", "8", "6", "B"},
-	"G":  {"g", "9", "G"},
+	"A": {"a", "@", "*", "A"},
+	"E": {"e", "3", "E"},
+	"S": {"s", "$", "5", "S", "2"},
+	"O": {"o", "0", "O"},
+	"T": {"7", "t", "T"},
+	"F": {"f", "F", "4"},
+	"I": {"i", "!", "1", "I"},
+	"B": {"b", "8", "6", "B"},
+	"G": {"g", "9", "G"},
 }
 
+// Leet "leetcodes" given string
 func leet(pass string) string {
 	var newpass string
 
@@ -46,11 +48,15 @@ func leet(pass string) string {
 	return newpass
 }
 
+// Token is a type for string literal's representation
 type Token struct {
-	Token     int
+	// Token is a field for integer value which may by converted to enum
+	Token int
+	// TokenType is a field for enum type
 	TokenType TOKEN_T
 }
 
+// NewToken instantiates Token type
 func NewToken() *Token {
 	token := &Token{}
 
@@ -60,6 +66,7 @@ func NewToken() *Token {
 	return token
 }
 
+// String gives string representation of Token
 func (t *Token) String() string {
 	var tokenized string
 
@@ -78,18 +85,58 @@ func (t *Token) String() string {
 	return tokenized
 }
 
+// Secret is a type for set of string literals wich will be generated
 type Secret struct {
+	// Generated tokens
 	Tokens []*Token
+	// Desired length
 	Length int
 }
 
+//NewSecret instantiates Secret type
 func NewSecret() *Secret {
 	secret := &Secret{}
 
 	return secret
 }
 
-func (s *Secret) TypeToken(ttype TOKEN_T, token *Token) bool {
+func (s *Secret) nextToken(num int) *Token {
+	t := &Token{}
+
+	if num < len(s.Tokens)-1 {
+		t = s.Tokens[num+1]
+	} else {
+		t = s.Tokens[len(s.Tokens)-1]
+	}
+	return t
+}
+
+func (s *Secret) insertToken(token *Token, num int) []*Token {
+	newtoken := &Token{}
+	newtokens := s.Tokens
+
+	newtokens = append(newtokens, newtoken)
+	copy(newtokens[num+1:], newtokens[num:])
+	newtokens[num] = token
+
+	return newtokens
+}
+
+func (s *Secret) generateTokens(length int) {
+	var secret []*Token
+
+	for i := 0; i < length; i++ {
+		token := NewToken()
+		secret = append(secret, token)
+	}
+	s.Length = len(secret)
+
+	s.Tokens = secret
+}
+
+// typeToken checks if given token is an object
+// of given token type (ENUM). It useful for checking diphthongs for vowels
+func (s *Secret) typeToken(ttype TOKEN_T, token *Token) bool {
 	check := false
 
 	if token.TokenType == ttype {
@@ -115,39 +162,8 @@ func (s *Secret) TypeToken(ttype TOKEN_T, token *Token) bool {
 	return check
 }
 
-func (s *Secret) String() string {
-	var sec string
-
-	for i := range s.Tokens {
-		sec = sec + s.Tokens[i].String()
-	}
-
-	return s.Tune(sec)
-}
-
-func (s *Secret) nextToken(num int) *Token {
-	t := &Token{}
-
-	if num < len(s.Tokens)-1 {
-		t = s.Tokens[num+1]
-	} else {
-		t = s.Tokens[len(s.Tokens)-1]
-	}
-	return t
-}
-
-func (s *Secret) insertToken(token *Token, num int) []*Token {
-	newtoken := &Token{}
-	newtokens := s.Tokens
-
-	newtokens = append(newtokens, newtoken)
-	copy(newtokens[num+1:], newtokens[num:])
-	newtokens[num] = token
-
-	return newtokens
-}
-
-func (s *Secret) Tune(val string) string {
+// tune makes string manipulations with generated data
+func (s *Secret) tune(val string) string {
 	word := downize(leet(val))
 	var newword string
 
@@ -162,12 +178,13 @@ func (s *Secret) Tune(val string) string {
 	return newword
 }
 
-func (s *Secret) Parse() string {
+// parse makes manipulation with Secret's []*Token
+func (s *Secret) parse() string {
 	newtokens := s.Tokens
 
 	for i := range newtokens {
 
-		if s.TypeToken(VOWEL, newtokens[i]) == true && s.TypeToken(VOWEL, s.nextToken(i)) == true {
+		if s.typeToken(VOWEL, newtokens[i]) == true && s.typeToken(VOWEL, s.nextToken(i)) == true {
 			newtoken := NewToken()
 			newtoken.Token = int(consonant_t())
 			newtoken.TokenType = CONSONANT
@@ -175,7 +192,7 @@ func (s *Secret) Parse() string {
 			newtokens = s.insertToken(newtoken, i+1)
 		}
 
-		if s.TypeToken(CONSONANT, newtokens[i]) == true && s.TypeToken(CONSONANT, s.nextToken(i)) == true {
+		if s.typeToken(CONSONANT, newtokens[i]) == true && s.typeToken(CONSONANT, s.nextToken(i)) == true {
 			newtoken := NewToken()
 			newtoken.Token = int(vowel_t())
 			newtoken.TokenType = VOWEL
@@ -189,24 +206,14 @@ func (s *Secret) Parse() string {
 	return s.String()
 }
 
-func (s *Secret) generateTokens(length int) {
-	var secret []*Token
-
-	for i := 0; i < length; i++ {
-		token := NewToken()
-		secret = append(secret, token)
-	}
-	s.Length = len(secret)
-
-	s.Tokens = secret
-}
-
+// PassWord generates password with given length and
+// given mode (strong or humanized)
 func (s *Secret) PassWord(length int, strong bool) string {
 	var p string
 
 	if !strong {
 		s.generateTokens(length)
-		p = s.Parse()
+		p = s.parse()
 	} else {
 		p = genstrong(length)
 	}
@@ -214,6 +221,8 @@ func (s *Secret) PassWord(length int, strong bool) string {
 	return p
 }
 
+// PassPhrase generates passphrase with given length and
+// given mode (strong or humanized)
 func (s *Secret) PassPhrase(words int, strong bool) string {
 	var phrase string
 	template := GetPhraseTemplate(words)
@@ -229,4 +238,15 @@ func (s *Secret) PassPhrase(words int, strong bool) string {
 	}
 
 	return strings.TrimPrefix(phrase, SPACE)
+}
+
+// String stringizes Secret's []*Token
+func (s *Secret) String() string {
+	var sec string
+
+	for i := range s.Tokens {
+		sec = sec + s.Tokens[i].String()
+	}
+
+	return s.tune(sec)
 }

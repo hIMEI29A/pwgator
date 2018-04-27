@@ -10,10 +10,11 @@ generation. Inspired by great [pwgen](https://github.com/tytso/pwgen).
 - [Version](#version)
 - [Install](#install)
 - [Usage](#usage)
+- [Examples](#examples)
 
 ## Features
 
-- Random passwords and passphrases generation. It can be done in **humanized** and **strong** (fully random and with all special symbols) mode.
+- Random passwords and passphrases generation. It can be done in **humanized** and **strong** (fully random  with all special symbols) modes.
 
 - Default pasword length is **8 symbols** (without **LENGTH** argument). Default passphrase's template is **2 words**.
 
@@ -21,51 +22,10 @@ generation. Inspired by great [pwgen](https://github.com/tytso/pwgen).
 
 - Template driven passphrase generation. Templates available: 2 words, 3 words, 4 words. One template generated passphrases have different length.
 
-- 100 concurrently generated passwords or passphrases output by one app call.
+- 100 concurrently generated passwords or passphrases by one app call.
 
 - Some leet-codes is used for humanisation random strings.
 
-- Passwords:
-
-	1. humanized
-	
-		Fo5h!po
-		mH*nGon
-
-		!*kE!YVZ
-		o1tZ@*Po
-		rUieIo@o
-		
-		MHuQUitUNo*XeimH
-		ieavpFcl@gq!tA@9
-		
-	2. strong
-	
-		Lul]M\<
-		rW3xW|&
-		i<qbtHf
-		
-		HX9hr5eO
-		;4&wvkj)
-		
-		mp.G*6"ZL\\PFo]|z
-		j{RzI]q~G>Q6i^s^=:
-		.(Gt^R*wR?k^8`o}+&
-		
-- Passphrases:
-
-	1. humanized
-	
-		WiCHad eQeq1$
-		M8aVK@ eja*a
-
-		*5a e1mHI NUdUm
-		R16 y3pee Dz0Od
-		
-	2. strong
-	
-		mM47d| q{5Ls
-		_+Of!% &V1c&
 
 ## Version
 
@@ -156,3 +116,63 @@ import (
 		fmt.Println(app.String())
 	}
 ```
+
+## Examples
+
+**Passwords:**
+
+_humanised_
+
+	Fo5h!po
+	mH*nGon
+	
+	u7a3!*LM
+	shm*eIoa
+	oYdZdZAe
+	KUkYqt3I
+	7Hth00HE
+	6e*0olYD
+	PB3Po1uy
+	
+	aWAvew39i
+	DadUMHIyQ
+	sHOlUx0fa
+	A3gE*APAo
+	gOk1e9omh
+	UqUh*D0o*
+
+
+	!*kE!YVZ
+	o1tZ@*Po
+	rUieIo@o
+		
+	MHuQUitUNo*XeimH
+	ieavpFcl@gq!tA@9
+
+_strong_
+
+	Lul]M\<
+	rW3xW|&
+	
+	i<qbtHf
+	HX9hr5eO
+	;4&wvkj)
+		
+	mp.G*6"ZL\\PFo]|z
+	j{RzI]q~G>Q6i^s^=:
+	.(Gt^R*wR?k^8`o}+&
+
+**Passphrases:**
+
+_humanized_
+
+	WiCHad eQeq1$
+	M8aVK@ eja*a
+
+	*5a e1mHI NUdUm
+	R16 y3pee Dz0Od
+
+-strong_
+
+	mM47d| q{5Ls
+	_+Of!% &V1c&

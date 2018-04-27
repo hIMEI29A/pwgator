@@ -19,6 +19,7 @@ const (
 	BUFFSIZE       = 200
 )
 
+// Constants for password or passphrase generation
 const (
 	PASSWORD APP_T = iota
 	PASSPHRASE
@@ -26,13 +27,19 @@ const (
 
 type APP_T int
 
+// App is a type for generation options.
 type App struct {
+	// Generated is a field for words or phrases produced
 	Generated []string
-	AppType   APP_T
-	IntVal    int
-	Strong    bool
+	// AppType is a const for password or passphrase
+	AppType APP_T
+	// IntValis a integer length in symbols (for word) or words(for phrases)
+	IntVal int
+	// Bool options for strong/humanized generation
+	Strong bool
 }
 
+// NewApp instantiates App datatype
 func NewApp(t, val int, s bool) *App {
 	app := &App{}
 	app.AppType = APP_T(t)
@@ -42,6 +49,7 @@ func NewApp(t, val int, s bool) *App {
 	return app
 }
 
+// Generate is a method for generation of 100 strings
 func (a *App) Generate() {
 	var generated []string
 	var chanString = make(chan string, BUFFSIZE)
@@ -73,6 +81,8 @@ func (a *App) Generate() {
 	a.Generated = generated
 }
 
+// String turn generated []string to string
+// Each new line is ended with "\n"
 func (a *App) String() string {
 	var s string
 
