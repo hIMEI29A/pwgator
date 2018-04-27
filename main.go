@@ -22,7 +22,7 @@ import (
 	pw "github.com/hIMEI29A/pwgator/pwgator"
 )
 
-var version = "v0.0.1-alpha"
+var version = "v0.0.2-alpha"
 
 var usage = `pwgator - humanized passphrases generator.
 
@@ -36,8 +36,8 @@ Arguments:
 Options:
   -h --help            Show this screen.
   --version            Show version.
-  -s --strong          Non-humanized genaration.
-  -p --phrase         Generate passphrases.
+  -s --strong          Non-humanized generation.
+  -p --phrase          Generate passphrases.
 
 `
 
