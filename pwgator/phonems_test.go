@@ -99,12 +99,44 @@ func Test_diftong_t(t *testing.T) {
 		name string
 		want DIPTHONG_T
 	}{
-	// TODO: Add test cases.
+		{"dif_rand", AE},
+		{"dif_rand", AH},
+		{"dif_rand", CH},
+		{"dif_rand", EE},
+		{"dif_rand", EI},
+		{"dif_rand", GH},
+		{"dif_rand", IE},
+		{"dif_rand", NG},
+		{"dif_rand", KA},
+		{"dif_rand", AO},
+		{"dif_rand", DZ},
+		{"dif_rand", MB},
+		{"dif_rand", MH},
+		{"dif_rand", OI},
+		{"dif_rand", OA},
+		{"dif_rand", OH},
+		{"dif_rand", OO},
+		{"dif_rand", PH},
+		{"dif_rand", QU},
+		{"dif_rand", SH},
+		{"dif_rand", TH},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := diftong_t(); got != tt.want {
-				t.Errorf("diftong_t() = %v, want %v", got, tt.want)
+				check := false
+				for i := 0; i < 10*(len(Diphtongs)-1); i++ {
+					got = diftong_t()
+
+					if got == tt.want {
+						check = true
+						break
+					}
+				}
+
+				if check != true {
+					t.Errorf("diftong_t() = %v, want %v", got, tt.want)
+				}
 			}
 		})
 	}
@@ -159,12 +191,28 @@ func Test_vowel_t(t *testing.T) {
 		name string
 		want VOWEL_T
 	}{
-	// TODO: Add test cases.
+		{"vow_rand", A},
+		{"vow_rand", O},
+		{"vow_rand", U},
+		{"vow_rand", I},
+		{"vow_rand", E},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := vowel_t(); got != tt.want {
-				t.Errorf("vowel_t() = %v, want %v", got, tt.want)
+				check := false
+				for i := 0; i < 10*(len(Vowels)-1); i++ {
+					got = vowel_t()
+
+					if got == tt.want {
+						check = true
+						break
+					}
+				}
+
+				if check != true {
+					t.Errorf("vowel_t() = %v, want %v", got, tt.want)
+				}
 			}
 		})
 	}
@@ -236,12 +284,44 @@ func Test_consonant_t(t *testing.T) {
 		name string
 		want CONSONANT_T
 	}{
-	// TODO: Add test cases.
+		{"cons_rand", B},
+		{"cons_rand", C},
+		{"cons_rand", D},
+		{"cons_rand", F},
+		{"cons_rand", G},
+		{"cons_rand", H},
+		{"cons_rand", J},
+		{"cons_rand", K},
+		{"cons_rand", L},
+		{"cons_rand", M},
+		{"cons_rand", N},
+		{"cons_rand", P},
+		{"cons_rand", Q},
+		{"cons_rand", R},
+		{"cons_rand", S},
+		{"cons_rand", T},
+		{"cons_rand", V},
+		{"cons_rand", W},
+		{"cons_rand", X},
+		{"cons_rand", Y},
+		{"cons_rand", ZZ},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := consonant_t(); got != tt.want {
-				t.Errorf("consonant_t() = %v, want %v", got, tt.want)
+				check := false
+				for i := 0; i < 10*(len(Consonants)-1); i++ {
+					got = consonant_t()
+
+					if got == tt.want {
+						check = true
+						break
+					}
+				}
+
+				if check != true {
+					t.Errorf("consonant_t() = %v, want %v", got, tt.want)
+				}
 			}
 		})
 	}
