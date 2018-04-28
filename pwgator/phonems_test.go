@@ -127,7 +127,6 @@ func Test_diftong_t(t *testing.T) {
 				check := false
 				for i := 0; i < 10*(len(Diphtongs)-1); i++ {
 					got = diftong_t()
-
 					if got == tt.want {
 						check = true
 						break
@@ -203,7 +202,6 @@ func Test_vowel_t(t *testing.T) {
 				check := false
 				for i := 0; i < 10*(len(Vowels)-1); i++ {
 					got = vowel_t()
-
 					if got == tt.want {
 						check = true
 						break
@@ -312,7 +310,6 @@ func Test_consonant_t(t *testing.T) {
 				check := false
 				for i := 0; i < 10*(len(Consonants)-1); i++ {
 					got = consonant_t()
-
 					if got == tt.want {
 						check = true
 						break

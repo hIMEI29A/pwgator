@@ -135,7 +135,7 @@ func (s *Secret) generateTokens(length int) {
 }
 
 // typeToken checks if given token is an object
-// of given token type (ENUM). It useful for checking diphthongs for vowels
+// of given token type (ENUM). It useful for checking DIPHTHONG for vowels
 func (s *Secret) typeToken(ttype TOKEN_T, token *Token) bool {
 	check := false
 
