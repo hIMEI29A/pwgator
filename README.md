@@ -24,8 +24,19 @@ generation. Inspired by great [pwgen](https://github.com/tytso/pwgen).
 
 - 100 concurrently generated passwords or passphrases by one app call.
 
-- Some leet-codes is used for humanisation random strings.
+- Some leet-codes is used for random replace of some characters:
 
+	**Character** | **Replace**
+	:------------:|:-----------:
+	    a         | @, *
+		e         | 3
+		s         | $, 5, 2
+		o         | 0
+		t         | 7
+		f         | 4
+		i         | !, 1
+		b         | 8, 6
+		g         | 9
 
 ## Version
 
