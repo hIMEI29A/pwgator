@@ -34,7 +34,7 @@ v0.1.2
 ## Install
 
 ##### As application
-https://github.com/hIMEI29A/pwgator/releases/download/v0.1.2/pwgator-0.1.2-amd64.deb
+
 Get current build at [release page](https://github.com/hIMEI29A/pwgator/releases).
 
 Or run
