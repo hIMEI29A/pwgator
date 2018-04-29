@@ -28,15 +28,15 @@ generation. Inspired by great [pwgen](https://github.com/tytso/pwgen).
 
 	**Character** | **Replace**
 	:------------:|:-----------:
-	    a         | @, *
-		e         | 3
-		s         | $, 5, 2
-		o         | 0
-		t         | 7
-		f         | 4
-		i         | !, 1
-		b         | 8, 6
-		g         | 9
+	    a        | @, *
+		e        | 3
+		s        | $, 5, 2
+		o        | 0
+		t        | 7
+		f        | 4
+		i        | !, 1
+		b        | 8, 6
+		g        | 9
 
 ## Version
 
@@ -86,7 +86,8 @@ Call **pwgator** with `-h` or `--help` option to get full usage instruction.
 	  -h --help            Show this screen.
 	  --version            Show version.
 	  -s --strong          Non-humanized generation.
-	  -p --phrase          Generate passphrases.
+	  -p --phrase          Generate passphrases (with random template).
+ 	  -r                   Generate random passphrases.
 
 Generation of default humanized passwords:
 
