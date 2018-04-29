@@ -19,8 +19,7 @@ import (
 	"testing"
 )
 
-// 10 * len(Consonants) * len(Tokens)
-const NEW_TOKEN_TEST_CASES = 66
+const MAX_TESTS = 1000000
 
 var (
 	Toks = []*Token{
@@ -67,7 +66,7 @@ func Test_leet(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := leet(tt.args.pass); got != tt.want {
 				check := false
-				for i := 0; i < 100*(len(Leet[tt.args.pass])-1); i++ {
+				for i := 0; i < MAX_TESTS*(len(Leet[tt.args.pass])-1); i++ {
 					got = leet(tt.args.pass)
 					if got == tt.want {
 						check = true
@@ -84,7 +83,7 @@ func Test_leet(t *testing.T) {
 }
 
 func TestNewToken(t *testing.T) {
-	token := &Token{2, VOWEL}
+	token := &Token{2, CONSONANT}
 	tests := []struct {
 		name string
 		want *Token
@@ -95,7 +94,7 @@ func TestNewToken(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := NewToken(); !reflect.DeepEqual(got, tt.want) {
 				check := false
-				for i := 0; i < NEW_TOKEN_TEST_CASES; i++ {
+				for i := 0; i < MAX_TESTS; i++ {
 					got = NewToken()
 					if reflect.DeepEqual(got, tt.want) {
 						check = true
@@ -330,7 +329,7 @@ func TestSecret_tune(t *testing.T) {
 			}
 			if got := s.tune(tt.args.val); got != tt.want {
 				check := false
-				for i := 0; i < 500; i++ {
+				for i := 0; i < MAX_TESTS; i++ {
 					got := s.tune(tt.args.val)
 					if got == tt.want {
 						check = true
@@ -420,6 +419,7 @@ func TestSecret_PassPhrase(t *testing.T) {
 	type args struct {
 		words  int
 		strong bool
+		random bool
 	}
 	tests := []struct {
 		name   string
@@ -435,19 +435,8 @@ func TestSecret_PassPhrase(t *testing.T) {
 				Tokens: tt.fields.Tokens,
 				Length: tt.fields.Length,
 			}
-			if got := s.PassPhrase(tt.args.words, tt.args.strong); got != tt.want {
-				check := false
-				for i := 0; i < 10000; i++ {
-					got := s.PassPhrase(tt.args.words, tt.args.strong)
-					if got == tt.want {
-						check = true
-						break
-					}
-				}
-
-				if check == true {
-					t.Errorf("Secret.PassPhrase() = %v, want %v", got, tt.want)
-				}
+			if got := s.PassPhrase(tt.args.words, tt.args.strong, tt.args.random); got != tt.want {
+				t.Errorf("Secret.PassPhrase() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -476,7 +465,7 @@ func TestSecret_String(t *testing.T) {
 			}
 			if got := s.String(); got != tt.want {
 				check := false
-				for i := 0; i < 1000; i++ {
+				for i := 0; i < MAX_TESTS; i++ {
 					got := s.String()
 					if got == tt.want {
 						check = true

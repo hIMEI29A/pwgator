@@ -22,13 +22,13 @@ import (
 	pw "github.com/hIMEI29A/pwgator/pwgator"
 )
 
-var version = "v0.0.2-alpha"
+var version = "v0.1.2"
 
 var usage = `pwgator - humanized passphrases generator.
 
 Usage:
   pwgator [-h | --help] | [--version]
-  pwgator [LENGTH] [-s | --strong] [-p | --phrase]
+  pwgator [LENGTH] [-s | --strong] [-p | --phrase [-r]]
 
 Arguments:
   LENGTH               Secret's length (OPTIONAL). Default is 8 for word, 2 for phrase.
@@ -37,7 +37,8 @@ Options:
   -h --help            Show this screen.
   --version            Show version.
   -s --strong          Non-humanized generation.
-  -p --phrase          Generate passphrases.
+  -p --phrase          Generate passphrases (with random template).
+  -r                   Generate random passphrases.
 
 `
 
@@ -48,6 +49,7 @@ func main() {
 		length  int
 		phrases int
 		strong  bool
+		random  bool
 	)
 
 	switch {
@@ -60,6 +62,7 @@ func main() {
 
 		phrases = 1
 		strong = opts["--strong"].(bool)
+		random = opts["-r"].(bool)
 
 	default:
 		if l := opts["LENGTH"]; l == nil {
@@ -72,7 +75,7 @@ func main() {
 		strong = opts["--strong"].(bool)
 
 	}
-	app := pw.NewApp(phrases, length, strong)
+	app := pw.NewApp(phrases, length, strong, random)
 	app.Generate()
 
 	fmt.Println(app.String())

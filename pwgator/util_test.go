@@ -16,9 +16,6 @@ package pwgator
 
 import "testing"
 
-// 10 * (BASE_E - BASE_S)
-const MAX_CRAN_TEST_CASES = 960
-
 func Test_ranint(t *testing.T) {
 	type args struct {
 		num int
@@ -43,7 +40,7 @@ func Test_ranint(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := ranint(tt.args.num); got != tt.want {
 				check := false
-				for i := 0; i < 100; i++ {
+				for i := 0; i < MAX_TESTS; i++ {
 					got := ranint(tt.args.num)
 					if got == tt.want {
 						check = true
@@ -83,7 +80,7 @@ func Test_ran(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := ran(tt.args.num); got != tt.want {
 				check := false
-				for i := 0; i < 100; i++ {
+				for i := 0; i < MAX_TESTS; i++ {
 					got := ran(tt.args.num)
 					if got == tt.want {
 						check = true
@@ -119,7 +116,7 @@ func Test_cran(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := cran(); got != tt.want {
 				check := false
-				for i := 0; i < MAX_CRAN_TEST_CASES; i++ {
+				for i := 0; i < MAX_TESTS; i++ {
 					got := cran()
 					if got == tt.want {
 						check = true
@@ -202,7 +199,7 @@ func Test_genstrong(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := genstrong(tt.args.length); got != tt.want {
 				check := false
-				for i := 0; i < MAX_CRAN_TEST_CASES; i++ {
+				for i := 0; i < MAX_TESTS; i++ {
 					got = genstrong(tt.args.length)
 					if got == tt.want {
 						check = true
@@ -258,7 +255,7 @@ func Test_cointh(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := cointh(); got != tt.want {
 				check := false
-				for i := 0; i < 10; i++ {
+				for i := 0; i < MAX_TESTS; i++ {
 					got := coin()
 					if got == tt.want {
 						check = true
@@ -335,7 +332,7 @@ func Test_downize(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := downize(tt.args.pass); got != tt.want {
 				check := false
-				for i := 0; i < 100*len(tt.args.pass); i++ {
+				for i := 0; i < MAX_TESTS*len(tt.args.pass); i++ {
 					got = downize(tt.args.pass)
 					if got == tt.want {
 						check = true

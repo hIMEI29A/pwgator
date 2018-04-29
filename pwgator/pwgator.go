@@ -223,9 +223,17 @@ func (s *Secret) PassWord(length int, strong bool) string {
 
 // PassPhrase generates passphrase with given length and
 // given mode (strong or humanized)
-func (s *Secret) PassPhrase(words int, strong bool) string {
-	var phrase string
-	template := GetPhraseTemplate(words)
+func (s *Secret) PassPhrase(words int, strong, random bool) string {
+	var (
+		phrase   string
+		template []int
+	)
+
+	template = GetPhraseTemplate(words)
+
+	if random == true {
+		template = GetRandomTemplate(words)
+	}
 
 	if !strong {
 		for i := range template {

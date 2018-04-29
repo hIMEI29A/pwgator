@@ -26,7 +26,7 @@ var (
 		"n",
 	}
 	emptystrings []string
-	testapp      = &App{emptystrings, 0, 8, false}
+	testapp      = &App{emptystrings, 0, 8, false, false}
 )
 
 func TestNewApp(t *testing.T) {
@@ -34,17 +34,18 @@ func TestNewApp(t *testing.T) {
 		t   int
 		val int
 		s   bool
+		r   bool
 	}
 	tests := []struct {
 		name string
 		args args
 		want *App
 	}{
-		{"newapp_test", args{0, 8, false}, testapp},
+		{"newapp_test", args{0, 8, false, false}, testapp},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewApp(tt.args.t, tt.args.val, tt.args.s); !reflect.DeepEqual(got, tt.want) {
+			if got := NewApp(tt.args.t, tt.args.val, tt.args.s, tt.args.r); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewApp() = %v, want %v", got, tt.want)
 			}
 		})
@@ -57,13 +58,14 @@ func TestApp_Generate(t *testing.T) {
 		AppType   APP_T
 		IntVal    int
 		Strong    bool
+		Random    bool
 	}
 	tests := []struct {
 		name   string
 		fields fields
 	}{
-		{"appgen_test", fields{teststrings, 0, 8, false}},
-		{"appgen_test", fields{teststrings, 0, 3, true}},
+		{"appgen_test", fields{teststrings, 0, 8, false, false}},
+		{"appgen_test", fields{teststrings, 0, 3, true, true}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -72,6 +74,7 @@ func TestApp_Generate(t *testing.T) {
 				AppType:   tt.fields.AppType,
 				IntVal:    tt.fields.IntVal,
 				Strong:    tt.fields.Strong,
+				Random:    tt.fields.Random,
 			}
 			a.Generate()
 		})
@@ -84,13 +87,14 @@ func TestApp_String(t *testing.T) {
 		AppType   APP_T
 		IntVal    int
 		Strong    bool
+		Random    bool
 	}
 	tests := []struct {
 		name   string
 		fields fields
 		want   string
 	}{
-		{"appstring_test", fields{teststrings, 0, 3, false}, "g" + "\n" + "e" + "\n" + "n" + "\n"},
+		{"appstring_test", fields{teststrings, 0, 3, false, false}, "g" + "\n" + "e" + "\n" + "n" + "\n"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -99,6 +103,7 @@ func TestApp_String(t *testing.T) {
 				AppType:   tt.fields.AppType,
 				IntVal:    tt.fields.IntVal,
 				Strong:    tt.fields.Strong,
+				Random:    tt.fields.Random,
 			}
 			if got := a.String(); got != tt.want {
 				t.Errorf("App.String() = %v, want %v", got, tt.want)

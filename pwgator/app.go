@@ -35,16 +35,19 @@ type App struct {
 	AppType APP_T
 	// IntValis a integer length in symbols (for word) or words(for phrases)
 	IntVal int
-	// Bool options for strong/humanized generation
+	// Boolean option for strong/humanized generation
 	Strong bool
+	// Boolean option for random/templated passphrase
+	Random bool
 }
 
 // NewApp instantiates App datatype
-func NewApp(t, val int, s bool) *App {
+func NewApp(t, val int, s, r bool) *App {
 	app := &App{}
 	app.AppType = APP_T(t)
 	app.IntVal = val
 	app.Strong = s
+	app.Random = r
 
 	return app
 }
@@ -62,7 +65,7 @@ func (a *App) Generate() {
 			if a.AppType == PASSWORD {
 				s = secret.PassWord(a.IntVal, a.Strong)
 			} else {
-				s = secret.PassPhrase(a.IntVal, a.Strong)
+				s = secret.PassPhrase(a.IntVal, a.Strong, a.Random)
 			}
 
 			ch <- s
