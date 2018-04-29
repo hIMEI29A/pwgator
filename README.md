@@ -20,7 +20,7 @@ generation. Inspired by great [pwgen](https://github.com/tytso/pwgen).
 
 - Default generation mode is **humanized**.
 
-- Template driven passphrase generation. Templates available: 2 words, 3 words, 4 words. One template generated passphrases have different length.
+- Passphrase generation with template or random. Templates available: 2 words, 3 words, 4 words. Random (by given words num) generated passphrase have random length in characters.
 
 - 100 concurrently generated passwords or passphrases by one app call.
 
@@ -29,7 +29,7 @@ generation. Inspired by great [pwgen](https://github.com/tytso/pwgen).
 
 ## Version
 
-v0.0.2-alpha
+v0.1.2
 
 ## Install
 

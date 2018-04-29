@@ -28,7 +28,7 @@ Call **pwgator** with `-h` or `--help` option to get full usage instruction.
 
 	Usage:
 	  pwgator [-h | --help] | [--version]
-	  pwgator [LENGTH] [-s | --strong] [-p | --phrase]
+	  pwgator [LENGTH] [-s | --strong] [-p | --phrase [-r]]
 
 	Arguments:
 	  LENGTH               Secret's length (OPTIONAL). Default is 8 for word, 2 for phrase.
@@ -37,7 +37,9 @@ Call **pwgator** with `-h` or `--help` option to get full usage instruction.
 	  -h --help            Show this screen.
 	  --version            Show version.
 	  -s --strong          Non-humanized generation.
-	  -p --phrase          Generate passphrases.
+	  -p --phrase          Generate passphrases (with random template).
+	  -r                   Generate random passphrases.
+
 
 To generate pass words use
 
@@ -50,6 +52,10 @@ With given length:
 Passphrases:
 
 	pwgator -p
+
+Random passphrases with 6 words length:
+
+	pwgator -p -r 6
 
 In strong mode
 
