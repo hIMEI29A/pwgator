@@ -27,16 +27,16 @@ generation. Inspired by great [pwgen](https://github.com/tytso/pwgen).
 - Some leet-codes is used for random replace of some characters:
 
 	**Character** | **Replace**
-	:------------:|:-----------:
-	    a        | @, *
-		e        | 3
-		s        | $, 5, 2
-		o        | 0
-		t        | 7
-		f        | 4
-		i        | !, 1
-		b        | 8, 6
-		g        | 9
+	|-------------|--------------|
+	|a            | @, *         |
+	|e            | 3            |
+	|s            | $, 5, 2      |
+	|o            | 0            |
+	|t            | 7            |
+	|f            | 4            |
+	|i            | !, 1         |
+	|b            | 8, 6         |
+	|g            | 9            |
 
 ## Version
 
@@ -60,6 +60,18 @@ go get github.com/hIMEI29A/pwgator/pwgator
 
 go install github.com/hIMEI29A/pwgator
 ```
+
+To get source code and run tests, do:
+
+```sh
+git clone github.com/hIMEI29A/pwgator.git
+
+cd pwgator
+
+make test
+```
+
+Now `make` will run all tests for app and package recursively .
 
 ##### As package
 
