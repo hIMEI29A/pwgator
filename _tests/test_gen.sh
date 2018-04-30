@@ -56,7 +56,7 @@ while [ "$1" != "" ]; do
 done
 
 # Move to package folder
-cd ../pwgator
+cd ..
 
 # Generating tests
  if [ "$FILE" = "all" ]

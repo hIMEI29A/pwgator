@@ -1,4 +1,13 @@
 
+0.1.3 / 2018-04-29
+==================
+
+  * Test for pwgator app writen. Config type in main.go added. Some other changes invisible to the user added.
+  * New rule for token parsing in pwgator.go
+  * Makefile added
+  * Merge branch 'dev'
+  * README changed
+
 0.1.2 / 2018-04-28
 ==================
 
@@ -16,7 +25,6 @@
 ==================
 
   * enums errors fixed
-  * readme changed
   * README changed
   * CHANGELOG.md added
 

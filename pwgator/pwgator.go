@@ -135,7 +135,7 @@ func (s *Secret) generateTokens(length int) {
 }
 
 // typeToken checks if given token is an object
-// of given token type (ENUM). It useful for checking DIPHTHONG for vowels
+// of given token type (ENUM). It useful for checking internal DIPHTHONG's chars.
 func (s *Secret) typeToken(ttype TOKEN_T, token *Token) bool {
 	check := false
 
@@ -183,8 +183,10 @@ func (s *Secret) parse() string {
 	newtokens := s.Tokens
 
 	for i := range newtokens {
-
-		if s.typeToken(VOWEL, newtokens[i]) == true && s.typeToken(VOWEL, s.nextToken(i)) == true {
+		// if vowel or diphthong with two vowels inside is followed by vowel,
+		// or any diphthong is followed by vowel, replace this last vowel with new token
+		if (s.typeToken(VOWEL, newtokens[i]) == true && s.typeToken(VOWEL, s.nextToken(i)) == true) ||
+			(s.typeToken(DIPTHONG, newtokens[i]) == true && s.typeToken(VOWEL, s.nextToken(i)) == true) {
 			newtoken := NewToken()
 			newtoken.Token = int(consonant_t())
 			newtoken.TokenType = CONSONANT
@@ -192,6 +194,8 @@ func (s *Secret) parse() string {
 			newtokens = s.insertToken(newtoken, i+1)
 		}
 
+		// if consonant or diphthong with two consonant inside is followed by consonant,
+		// replace this last consonant with new token
 		if s.typeToken(CONSONANT, newtokens[i]) == true && s.typeToken(CONSONANT, s.nextToken(i)) == true {
 			newtoken := NewToken()
 			newtoken.Token = int(vowel_t())

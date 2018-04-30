@@ -17,12 +17,13 @@ package main
 import (
 	"fmt"
 	"os"
+	//	"errors"
 
 	docopt "github.com/docopt/docopt-go"
 	pw "github.com/hIMEI29A/pwgator/pwgator"
 )
 
-var version = "v0.1.2"
+var version = "v0.1.3"
 
 var usage = `pwgator - humanized passphrases generator.
 
@@ -42,40 +43,62 @@ Options:
 
 `
 
-func main() {
-	opts, _ := docopt.ParseArgs(usage, os.Args[1:], version)
+var (
+	Configurator = NewConfig()
+	PwArgs       = os.Args[1:]
+)
 
-	var (
-		length  int
-		phrases int
-		strong  bool
-		random  bool
-	)
+type Config struct {
+	Length  int
+	Phrases int
+	Strong  bool
+	Random  bool
+}
+
+func NewConfig() *Config {
+	return &Config{}
+}
+
+func (config *Config) setArgs(args []string) error {
+	var newerr error
+	opts, err := docopt.ParseArgs(usage, args, version)
+
+	if err != nil {
+		newerr = err
+	}
 
 	switch {
 	case opts["--phrase"]:
 		if l := opts["LENGTH"]; l == nil {
-			length = 2
+			config.Length = 2
 		} else {
-			length = pw.AToi(l.(string))
+			config.Length = pw.AToi(l.(string))
 		}
 
-		phrases = 1
-		strong = opts["--strong"].(bool)
-		random = opts["-r"].(bool)
+		config.Phrases = 1
+		config.Strong = opts["--strong"].(bool)
+		config.Random = opts["-r"].(bool)
 
 	default:
 		if l := opts["LENGTH"]; l == nil {
-			length = 8
+			config.Length = 8
 		} else {
-			length = pw.AToi(l.(string))
+			config.Length = pw.AToi(l.(string))
 		}
 
-		phrases = 0
-		strong = opts["--strong"].(bool)
-
+		config.Phrases = 0
+		config.Strong = opts["--strong"].(bool)
 	}
-	app := pw.NewApp(phrases, length, strong, random)
+
+	return newerr
+}
+
+func main() {
+	if err := Configurator.setArgs(PwArgs); err != nil {
+		pw.ErrFatal(err)
+	}
+
+	app := pw.NewApp(Configurator.Phrases, Configurator.Length, Configurator.Strong, Configurator.Random)
 	app.Generate()
 
 	fmt.Println(app.String())
