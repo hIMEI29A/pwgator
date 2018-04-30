@@ -41,7 +41,7 @@ generation. Inspired by great [pwgen](https://github.com/tytso/pwgen).
 ## Version
 
 v0.1.3
-
+https://github.com/hIMEI29A/pwgator/releases/download/v0.1.3/pwgator-0.1.3-amd64.deb
 ## Install
 
 ##### As application
@@ -51,7 +51,7 @@ Get current build at [release page](https://github.com/hIMEI29A/pwgator/releases
 Or run
 
 	wget https://github.com/hIMEI29A/pwgator/releases/download/\
-	v0.1.2/pwgator-0.1.2-amd64.deb && sudo dpkg -i pwgator-0.1.2-amd64.deb
+	v0.1.3/pwgator-0.1.3-amd64.deb && sudo dpkg -i pwgator-0.1.3-amd64.deb
 
 Or, if you have Golang installed,
 
