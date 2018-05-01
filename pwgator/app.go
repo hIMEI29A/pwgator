@@ -27,7 +27,7 @@ const (
 
 type APP_T int
 
-// App is a type for generation options.
+// App is a type for options generation.
 type App struct {
 	// Generated is a field for words or phrases produced
 	Generated []string
