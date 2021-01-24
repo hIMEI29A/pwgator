@@ -139,10 +139,12 @@ import (
 		phrases := 0
 		
 		strong := true
+
+        random := false
 		
 		// Generate new pwgator with "phrases" boolean option, 
 		//int length and "strong" boolean option
-		app := pwgator.NewApp(phrases, length, strong)
+		app := pwgator.NewApp(phrases, length, strong, ramdom)
 		app.Generate()
 
 		fmt.Println(app.String())
