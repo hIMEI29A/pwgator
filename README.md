@@ -144,7 +144,7 @@ import (
 		
 		// Generate new pwgator with "phrases" boolean option, 
 		//int length and "strong" boolean option
-		app := pwgator.NewApp(phrases, length, strong, ramdom)
+		app := pwgator.NewApp(phrases, length, strong, random)
 		app.Generate()
 
 		fmt.Println(app.String())
