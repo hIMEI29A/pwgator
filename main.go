@@ -17,7 +17,6 @@ package main
 import (
 	"fmt"
 	"os"
-	//	"errors"
 
 	docopt "github.com/docopt/docopt-go"
 	pw "github.com/hIMEI29A/pwgator/pwgator"
@@ -32,7 +31,7 @@ Usage:
   pwgator [LENGTH] [-s | --strong] [-p | --phrase [-r]]
 
 Arguments:
-  LENGTH               Secret's length (OPTIONAL). Default is 8 for word, 2 for phrase.
+  LENGTH               Secret's length (OPTIONAL). Default is 8 for password, 2 for phrase.
 
 Options:
   -h --help            Show this screen.
@@ -44,22 +43,22 @@ Options:
 `
 
 var (
-	Configurator = NewConfig()
-	PwArgs       = os.Args[1:]
+	configurator = NewConfig()
+	pwArgs       = os.Args[1:]
 )
 
-type Config struct {
-	Length  int
-	Phrases int
-	Strong  bool
-	Random  bool
+type config struct {
+	length  int
+	phrases int
+	strong  bool
+	random  bool
 }
 
-func NewConfig() *Config {
-	return &Config{}
+func NewConfig() *config {
+	return &config{}
 }
 
-func (config *Config) setArgs(args []string) error {
+func (c *config) setArgs(args []string) error {
 	var newerr error
 	opts, err := docopt.ParseArgs(usage, args, version)
 
@@ -70,35 +69,35 @@ func (config *Config) setArgs(args []string) error {
 	switch {
 	case opts["--phrase"]:
 		if l := opts["LENGTH"]; l == nil {
-			config.Length = 2
+			config.length = 2
 		} else {
-			config.Length = pw.AToi(l.(string))
+			config.length = pw.AToi(l.(string))
 		}
 
-		config.Phrases = 1
-		config.Strong = opts["--strong"].(bool)
-		config.Random = opts["-r"].(bool)
+		c.phrases = 1
+		c.strong = opts["--strong"].(bool)
+		c.random = opts["-r"].(bool)
 
 	default:
 		if l := opts["LENGTH"]; l == nil {
-			config.Length = 8
+			c.length = 8
 		} else {
-			config.Length = pw.AToi(l.(string))
+			c.length = pw.AToi(l.(string))
 		}
 
-		config.Phrases = 0
-		config.Strong = opts["--strong"].(bool)
+		c.phrases = 0
+		c.strong = opts["--strong"].(bool)
 	}
 
 	return newerr
 }
 
 func main() {
-	if err := Configurator.setArgs(PwArgs); err != nil {
+	if err := configurator.setArgs(pwArgs); err != nil {
 		pw.ErrFatal(err)
 	}
 
-	app := pw.NewApp(Configurator.Phrases, Configurator.Length, Configurator.Strong, Configurator.Random)
+	app := pw.NewApp(configurator.phrases, configurator.length, configurator.strong, configurator.random)
 	app.Generate()
 
 	fmt.Println(app.String())

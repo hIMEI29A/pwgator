@@ -31,11 +31,11 @@ var TestArgs = []string{
 }
 
 func TestNewConfig(t *testing.T) {
-	c := &Config{}
+	c := &config{}
 
 	tests := []struct {
 		name string
-		want *Config
+		want *config
 	}{
 		{"newconfig_test", c},
 	}
@@ -50,10 +50,10 @@ func TestNewConfig(t *testing.T) {
 
 func TestConfig_setArgs(t *testing.T) {
 	type fields struct {
-		Length  int
-		Phrases int
-		Strong  bool
-		Random  bool
+		length  int
+		phrases int
+		strong  bool
+		random  bool
 	}
 	type args struct {
 		args []string
@@ -68,11 +68,11 @@ func TestConfig_setArgs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := &Config{
-				Length:  tt.fields.Length,
-				Phrases: tt.fields.Phrases,
-				Strong:  tt.fields.Strong,
-				Random:  tt.fields.Random,
+			c := &config{
+				length:  tt.fields.Length,
+				phrases: tt.fields.Phrases,
+				strong:  tt.fields.Strong,
+				random:  tt.fields.Random,
 			}
 			if err := config.setArgs(tt.args.args); (err != nil) != tt.wantErr {
 				t.Errorf("Config.setArgs() error = %v, wantErr %v", err, tt.wantErr)
@@ -83,7 +83,7 @@ func TestConfig_setArgs(t *testing.T) {
 
 func Test_main(t *testing.T) {
 	os.Args = TestArgs
-	Configurator = NewConfig()
+	configurator = NewConfig()
 
 	tests := []struct {
 		name string
@@ -92,11 +92,16 @@ func Test_main(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Configurator.setArgs(PwArgs); err != nil {
+			if err := configurator.setArgs(pwArgs); err != nil {
 				t.Errorf("Arguments parsing error: %v", err)
 			}
 
-			app := pw.NewApp(Configurator.Phrases, Configurator.Length, Configurator.Strong, Configurator.Random)
+			app := pw.NewApp(
+				configurator.phrases,
+				configurator.length,
+				configurator.strong,
+				configurator.random,
+			)
 
 			if app == nil {
 				t.Errorf("Config error")
