@@ -84,9 +84,8 @@ func (a *App) Generate() {
 	a.Generated = generated
 }
 
-// String turns generated []string to string
-// Each new line is ended with "\n"
-func (a *App) String() string {
+// GetString returns generated []string as string
+func (a *App) GetString() string {
 	var s string
 
 	for i := range a.Generated {
