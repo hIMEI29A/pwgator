@@ -52,7 +52,7 @@ func NewApp(t, val int, s, r bool) *App {
 	return app
 }
 
-// Generate is a method for generation of 100 strings
+// Generate generates 100 strings
 func (a *App) Generate() {
 	var generated []string
 	var chanString = make(chan string, BUFFSIZE)
@@ -84,7 +84,7 @@ func (a *App) Generate() {
 	a.Generated = generated
 }
 
-// String turn generated []string to string
+// String turns generated []string to string
 // Each new line is ended with "\n"
 func (a *App) String() string {
 	var s string
