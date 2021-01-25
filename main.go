@@ -69,9 +69,9 @@ func (c *config) setArgs(args []string) error {
 	switch {
 	case opts["--phrase"]:
 		if l := opts["LENGTH"]; l == nil {
-			config.length = 2
+			c.length = 2
 		} else {
-			config.length = pw.AToi(l.(string))
+			c.length = pw.AToi(l.(string))
 		}
 
 		c.phrases = 1
