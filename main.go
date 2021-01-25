@@ -100,5 +100,5 @@ func main() {
 	app := pw.NewApp(configurator.phrases, configurator.length, configurator.strong, configurator.random)
 	app.Generate()
 
-	fmt.Println(app.String())
+	fmt.Println(app.GetString())
 }

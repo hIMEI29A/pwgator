@@ -81,7 +81,7 @@ func TestApp_Generate(t *testing.T) {
 	}
 }
 
-func TestApp_String(t *testing.T) {
+func TestApp_GetString(t *testing.T) {
 	type fields struct {
 		Generated []string
 		AppType   APP_T
@@ -105,7 +105,7 @@ func TestApp_String(t *testing.T) {
 				Strong:    tt.fields.Strong,
 				Random:    tt.fields.Random,
 			}
-			if got := a.String(); got != tt.want {
+			if got := a.GetString(); got != tt.want {
 				t.Errorf("App.String() = %v, want %v", got, tt.want)
 			}
 		})
