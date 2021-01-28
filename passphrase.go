@@ -12,25 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//File passphrase.go contains variables and functions for passphrases
-//generating. Here is two modes for this: generating with template (default) and
-//random generation. In first the passhrase's length (in characters) is fixed.
-//In both modes generation is done with given words number.
-//
-//Passphrase length by words number in template mode:
-//
-//	2 words 12 characters
-//	3 words 16 characters
-//	4 words 19 characters
-//
-//In random mode passhrase's length in chars is random.
 package pwgator
 
-const SPACE = " "
-
 const (
-	LETTERS_MIN = 2
-	LETTERS_MAX = 8
+	lettersMin = 2
+	lettersMax = 8
 )
 
 var twoWord = [][]int{
@@ -59,8 +45,8 @@ var phrases = map[int][][]int{
 	4: fourWords,
 }
 
-// GetPhraseTemplate returns one of passphrase template's with given length.
-func GetPhraseTemplate(num int) []int {
+// getPhraseTemplate returns one of passphrase template's with given length.
+func getPhraseTemplate(num int) []int {
 	var template []int
 
 	if templates, ok := phrases[num]; ok {
@@ -71,18 +57,18 @@ func GetPhraseTemplate(num int) []int {
 	return template
 }
 
-// GetRandomTemplate generates random passphrase's template
-func GetRandomTemplate(num int) []int {
+// getRandomTemplate generates random passphrase's template
+func getRandomTemplate(num int) []int {
 	var (
 		template []int
 		temp     int
 	)
 
 	for i := 0; i < num; i++ {
-		temp = ranint(LETTERS_MAX)
+		temp = ranint(lettersMax)
 
-		if temp < LETTERS_MIN {
-			temp = ranint(LETTERS_MAX)
+		if temp < lettersMin {
+			temp = ranint(lettersMax)
 		}
 
 		template = append(template, temp)

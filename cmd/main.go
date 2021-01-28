@@ -19,10 +19,10 @@ import (
 	"os"
 
 	docopt "github.com/docopt/docopt-go"
-	pw "github.com/hIMEI29A/pwgator/pwgator"
+	pw "github.com/hIMEI29A/pwgator"
 )
 
-var version = "v0.1.3"
+var version = "v1.0.0"
 
 var usage = `pwgator - humanized passphrases generator.
 
@@ -43,7 +43,7 @@ Options:
 `
 
 var (
-	configurator = NewConfig()
+	configurator = newConfig()
 	pwArgs       = os.Args[1:]
 )
 
@@ -54,7 +54,7 @@ type config struct {
 	random  bool
 }
 
-func NewConfig() *config {
+func newConfig() *config {
 	return &config{}
 }
 
@@ -77,7 +77,6 @@ func (c *config) setArgs(args []string) error {
 		c.phrases = 1
 		c.strong = opts["--strong"].(bool)
 		c.random = opts["-r"].(bool)
-
 	default:
 		if l := opts["LENGTH"]; l == nil {
 			c.length = 8
@@ -94,11 +93,11 @@ func (c *config) setArgs(args []string) error {
 
 func main() {
 	if err := configurator.setArgs(pwArgs); err != nil {
-		pw.ErrFatal(err)
+		panic(err)
 	}
 
-	app := pw.NewApp(configurator.phrases, configurator.length, configurator.strong, configurator.random)
-	app.Generate()
+	generator := pw.NewGenerator(configurator.phrases, configurator.length, configurator.strong, configurator.random)
+	generator.Generate()
 
-	fmt.Println(app.GetString())
+	fmt.Println(generator.GetString())
 }

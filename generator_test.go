@@ -26,10 +26,10 @@ var (
 		"n",
 	}
 	emptystrings []string
-	testapp      = &App{emptystrings, 0, 8, false, false}
+	testgen      = &Generator{emptystrings, 0, 8, false, false}
 )
 
-func TestNewApp(t *testing.T) {
+func TestNewGenerator(t *testing.T) {
 	type args struct {
 		t   int
 		val int
@@ -39,23 +39,23 @@ func TestNewApp(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want *App
+		want *Generator
 	}{
-		{"newapp_test", args{0, 8, false, false}, testapp},
+		{"newgen_test", args{0, 8, false, false}, testgen},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewApp(tt.args.t, tt.args.val, tt.args.s, tt.args.r); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewApp() = %v, want %v", got, tt.want)
+			if got := NewGenerator(tt.args.t, tt.args.val, tt.args.s, tt.args.r); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewGenerator() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestApp_Generate(t *testing.T) {
+func TestGenerator_Generate(t *testing.T) {
 	type fields struct {
 		Generated []string
-		AppType   APP_T
+		GenType   GeneratorType
 		IntVal    int
 		Strong    bool
 		Random    bool
@@ -64,27 +64,27 @@ func TestApp_Generate(t *testing.T) {
 		name   string
 		fields fields
 	}{
-		{"appgen_test", fields{teststrings, 0, 8, false, false}},
-		{"appgen_test", fields{teststrings, 0, 3, true, true}},
+		{"gengen_test", fields{teststrings, 0, 8, false, false}},
+		{"gengen_test", fields{teststrings, 0, 3, true, true}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			a := &App{
+			g := &Generator{
 				Generated: tt.fields.Generated,
-				AppType:   tt.fields.AppType,
+				GenType:   tt.fields.GenType,
 				IntVal:    tt.fields.IntVal,
 				Strong:    tt.fields.Strong,
 				Random:    tt.fields.Random,
 			}
-			a.Generate()
+			g.Generate()
 		})
 	}
 }
 
-func TestApp_GetString(t *testing.T) {
+func TestGenerator_GetString(t *testing.T) {
 	type fields struct {
 		Generated []string
-		AppType   APP_T
+		GenType   GeneratorType
 		IntVal    int
 		Strong    bool
 		Random    bool
@@ -94,19 +94,19 @@ func TestApp_GetString(t *testing.T) {
 		fields fields
 		want   string
 	}{
-		{"appstring_test", fields{teststrings, 0, 3, false, false}, "g" + "\n" + "e" + "\n" + "n" + "\n"},
+		{"genstring_test", fields{teststrings, 0, 3, false, false}, "g" + "\n" + "e" + "\n" + "n" + "\n"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			a := &App{
+			g := &Generator{
 				Generated: tt.fields.Generated,
-				AppType:   tt.fields.AppType,
+				GenType:   tt.fields.GenType,
 				IntVal:    tt.fields.IntVal,
 				Strong:    tt.fields.Strong,
 				Random:    tt.fields.Random,
 			}
-			if got := a.GetString(); got != tt.want {
-				t.Errorf("App.String() = %v, want %v", got, tt.want)
+			if got := g.GetString(); got != tt.want {
+				t.Errorf("Generator.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}

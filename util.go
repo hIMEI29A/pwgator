@@ -22,11 +22,11 @@ import (
 	"unicode"
 )
 
-const COIN_MAX = 10000
+const coinMax = 10000
 
 const (
-	BASE_S int32 = 32
-	BASE_E       = 128
+	base32  int32 = 32
+	base128       = 128
 )
 
 func ranint(num int) int {
@@ -46,9 +46,9 @@ func ran(num int32) int32 {
 }
 
 func cran() int32 {
-	cRan := ran(BASE_E)
+	cRan := ran(base128)
 
-	if cRan > BASE_S {
+	if cRan > base32 {
 		return cRan
 	} else {
 		cRan = cran()
@@ -56,7 +56,7 @@ func cran() int32 {
 	return cRan
 }
 
-func ErrFatal(err error) {
+func errFatal(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -64,7 +64,7 @@ func ErrFatal(err error) {
 
 func AToi(a string) int {
 	r, err := strconv.Atoi(a)
-	ErrFatal(err)
+	errFatal(err)
 
 	return r
 }
@@ -75,7 +75,7 @@ func genstrong(length int) string {
 	for j := 0; j < length; j++ {
 		char := strconv.QuoteRuneToASCII(cran())
 		uchar, err := strconv.Unquote(char)
-		ErrFatal(err)
+		errFatal(err)
 		chars = chars + uchar
 	}
 
@@ -85,9 +85,9 @@ func genstrong(length int) string {
 func coin() bool {
 	value := false
 
-	r := ranint(COIN_MAX)
+	r := ranint(coinMax)
 
-	if r >= COIN_MAX/2 {
+	if r >= coinMax/2 {
 		value = true
 	}
 
@@ -97,7 +97,7 @@ func coin() bool {
 func cointh() bool {
 	value := false
 
-	r := ranint(COIN_MAX)
+	r := ranint(coinMax)
 
 	if r%3 == 0 {
 		value = true
