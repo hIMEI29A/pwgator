@@ -1,3 +1,13 @@
+1.0.0 / 2021-01-28
+==================
+
+   * Code fully refactored
+   * Project structure changed.
+   * Import path for pwgator library changed to https://github.com/hIMEI29A/pwgator.
+   * App type removed, Generator type added.
+   * Generator.GetGenerated() []string  method added.
+   * Makefile removed.
+
 0.1.4 / 2021-01-25
 ==================
 
