@@ -34,7 +34,7 @@ import (
 	"testing"
 )
 
-func TestGetPhraseTemplate(t *testing.T) {
+func Test_getPhraseTemplate(t *testing.T) {
 	type args struct {
 		num int
 	}
@@ -43,18 +43,18 @@ func TestGetPhraseTemplate(t *testing.T) {
 		args args
 		want []int
 	}{
-	// TODO: Add test cases.
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetPhraseTemplate(tt.args.num); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetPhraseTemplate() = %v, want %v", got, tt.want)
+			if got := getPhraseTemplate(tt.args.num); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getPhraseTemplate() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestGetRandomTemplate(t *testing.T) {
+func Test_getRandomTemplate(t *testing.T) {
 	type args struct {
 		num int
 	}
@@ -63,12 +63,12 @@ func TestGetRandomTemplate(t *testing.T) {
 		args args
 		want []int
 	}{
-	// TODO: Add test cases.
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetRandomTemplate(tt.args.num); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetRandomTemplate() = %v, want %v", got, tt.want)
+			if got := getRandomTemplate(tt.args.num); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getRandomTemplate() = %v, want %v", got, tt.want)
 			}
 		})
 	}

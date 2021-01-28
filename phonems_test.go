@@ -19,48 +19,48 @@ import (
 	"testing"
 )
 
-func TestTOKEN_T_String(t *testing.T) {
+func Test_tokenType_String(t *testing.T) {
 	tests := []struct {
 		name string
-		t    TOKEN_T
+		t    tokenType
 		want string
 	}{
-		{"tok_t", VOWEL, "VOWEL"},
-		{"tok_t", DIPTHONG, "DIPTHONG"},
-		{"tok_t", CONSONANT, "CONSONANT"},
+		{"tok_t", vowel, "vowel"},
+		{"tok_t", diphthong, "diphthong"},
+		{"tok_t", consonant, "consonant"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.t.String(); got != tt.want {
-				t.Errorf("TOKEN_T.String() = %v, want %v", got, tt.want)
+				t.Errorf("tokenType.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestTOKEN_T_TokenNames(t *testing.T) {
+func Test_tokenType_tokenNames(t *testing.T) {
 	tests := []struct {
 		name string
-		t    TOKEN_T
+		t    tokenType
 		want []string
 	}{
-		{"t_names", VOWEL, Vowels},
-		{"t_names", DIPTHONG, Diphtongs},
-		{"t_names", CONSONANT, Consonants},
+		{"t_names", vowel, vowels},
+		{"t_names", diphthong, diphthongs},
+		{"t_names", consonant, consonants},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.t.TokenNames(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("TOKEN_T.TokenNames() = %v, want %v", got, tt.want)
+			if got := tt.t.tokenNames(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("tokenType.tokenNames() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestDIPTHONG_T_String(t *testing.T) {
+func Test_diphthongType_String(t *testing.T) {
 	tests := []struct {
 		name string
-		d    DIPTHONG_T
+		d    diphthongType
 		want string
 	}{
 		{"dif_t", AE, "AE"},
@@ -88,16 +88,16 @@ func TestDIPTHONG_T_String(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.d.String(); got != tt.want {
-				t.Errorf("DIPTHONG_T.String() = %v, want %v", got, tt.want)
+				t.Errorf("diphthongType.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_diftong_t(t *testing.T) {
+func Test_getDiphthong(t *testing.T) {
 	tests := []struct {
 		name string
-		want DIPTHONG_T
+		want diphthongType
 	}{
 		{"dif_rand", AE},
 		{"dif_rand", AH},
@@ -123,10 +123,10 @@ func Test_diftong_t(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := diftong_t(); got != tt.want {
+			if got := getDiphthong(); got != tt.want {
 				check := false
-				for i := 0; i < 10*(len(Diphtongs)-1); i++ {
-					got = diftong_t()
+				for i := 0; i < 10*(len(diphthongs)-1); i++ {
+					got = getDiphthong()
 					if got == tt.want {
 						check = true
 						break
@@ -134,17 +134,17 @@ func Test_diftong_t(t *testing.T) {
 				}
 
 				if check != true {
-					t.Errorf("diftong_t() = %v, want %v", got, tt.want)
+					t.Errorf("getDiphthong() = %v, want %v", got, tt.want)
 				}
 			}
 		})
 	}
 }
 
-func TestVOWEL_T_String(t *testing.T) {
+func Test_vowelType_String(t *testing.T) {
 	tests := []struct {
 		name string
-		v    VOWEL_T
+		v    vowelType
 		want string
 	}{
 		{"vow_t", A, "A"},
@@ -156,13 +156,13 @@ func TestVOWEL_T_String(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.v.String(); got != tt.want {
-				t.Errorf("VOWEL_T.String() = %v, want %v", got, tt.want)
+				t.Errorf("vowelType.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestVowel_t(t *testing.T) {
+func Test_isVowel(t *testing.T) {
 	type args struct {
 		char string
 	}
@@ -178,17 +178,17 @@ func TestVowel_t(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Vowel_t(tt.args.char); got != tt.want {
-				t.Errorf("Vowel_t() = %v, want %v", got, tt.want)
+			if got := isVowel(tt.args.char); got != tt.want {
+				t.Errorf("isVowel() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_vowel_t(t *testing.T) {
+func Test_getVowel(t *testing.T) {
 	tests := []struct {
 		name string
-		want VOWEL_T
+		want vowelType
 	}{
 		{"vow_rand", A},
 		{"vow_rand", O},
@@ -198,10 +198,10 @@ func Test_vowel_t(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := vowel_t(); got != tt.want {
+			if got := getVowel(); got != tt.want {
 				check := false
-				for i := 0; i < 10*(len(Vowels)-1); i++ {
-					got = vowel_t()
+				for i := 0; i < 10*(len(vowels)-1); i++ {
+					got = getVowel()
 					if got == tt.want {
 						check = true
 						break
@@ -209,17 +209,17 @@ func Test_vowel_t(t *testing.T) {
 				}
 
 				if check != true {
-					t.Errorf("vowel_t() = %v, want %v", got, tt.want)
+					t.Errorf("getVowel() = %v, want %v", got, tt.want)
 				}
 			}
 		})
 	}
 }
 
-func TestCONSONANT_T_String(t *testing.T) {
+func Test_consonantType_String(t *testing.T) {
 	tests := []struct {
 		name string
-		c    CONSONANT_T
+		c    consonantType
 		want string
 	}{
 		{"cons_t", B, "B"},
@@ -247,13 +247,13 @@ func TestCONSONANT_T_String(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.c.String(); got != tt.want {
-				t.Errorf("CONSONANT_T.String() = %v, want %v", got, tt.want)
+				t.Errorf("consonantType.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestConsonant_t(t *testing.T) {
+func Test_isConsonant(t *testing.T) {
 	type args struct {
 		char string
 	}
@@ -270,17 +270,17 @@ func TestConsonant_t(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Consonant_t(tt.args.char); got != tt.want {
-				t.Errorf("Consonant_t() = %v, want %v", got, tt.want)
+			if got := isConsonant(tt.args.char); got != tt.want {
+				t.Errorf("isConsonant() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_consonant_t(t *testing.T) {
+func Test_getConsonant(t *testing.T) {
 	tests := []struct {
 		name string
-		want CONSONANT_T
+		want consonantType
 	}{
 		{"cons_rand", B},
 		{"cons_rand", C},
@@ -306,10 +306,10 @@ func Test_consonant_t(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := consonant_t(); got != tt.want {
+			if got := getConsonant(); got != tt.want {
 				check := false
-				for i := 0; i < 10*(len(Consonants)-1); i++ {
-					got = consonant_t()
+				for i := 0; i < 10*(len(consonants)-1); i++ {
+					got = getConsonant()
 					if got == tt.want {
 						check = true
 						break
@@ -317,7 +317,7 @@ func Test_consonant_t(t *testing.T) {
 				}
 
 				if check != true {
-					t.Errorf("consonant_t() = %v, want %v", got, tt.want)
+					t.Errorf("getConsonant() = %v, want %v", got, tt.want)
 				}
 			}
 		})

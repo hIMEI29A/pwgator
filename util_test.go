@@ -40,7 +40,7 @@ func Test_ranint(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := ranint(tt.args.num); got != tt.want {
 				check := false
-				for i := 0; i < MAX_TESTS; i++ {
+				for i := 0; i < maxTests; i++ {
 					got := ranint(tt.args.num)
 					if got == tt.want {
 						check = true
@@ -80,7 +80,7 @@ func Test_ran(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := ran(tt.args.num); got != tt.want {
 				check := false
-				for i := 0; i < MAX_TESTS; i++ {
+				for i := 0; i < maxTests; i++ {
 					got := ran(tt.args.num)
 					if got == tt.want {
 						check = true
@@ -116,7 +116,7 @@ func Test_cran(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := cran(); got != tt.want {
 				check := false
-				for i := 0; i < MAX_TESTS; i++ {
+				for i := 0; i < maxTests; i++ {
 					got := cran()
 					if got == tt.want {
 						check = true
@@ -132,7 +132,7 @@ func Test_cran(t *testing.T) {
 	}
 }
 
-func TestErrFatal(t *testing.T) {
+func Test_errFatal(t *testing.T) {
 	var testerror error
 	type args struct {
 		err error
@@ -145,12 +145,12 @@ func TestErrFatal(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ErrFatal(tt.args.err)
+			errFatal(tt.args.err)
 		})
 	}
 }
 
-func TestAToi(t *testing.T) {
+func Test_AToi(t *testing.T) {
 	type args struct {
 		a string
 	}
@@ -169,7 +169,7 @@ func TestAToi(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := AToi(tt.args.a); got != tt.want {
-				t.Errorf("AToi() = %v, want %v", got, tt.want)
+				t.Errorf("aToi() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -199,7 +199,7 @@ func Test_genstrong(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := genstrong(tt.args.length); got != tt.want {
 				check := false
-				for i := 0; i < MAX_TESTS; i++ {
+				for i := 0; i < maxTests; i++ {
 					got = genstrong(tt.args.length)
 					if got == tt.want {
 						check = true
@@ -255,7 +255,7 @@ func Test_cointh(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := cointh(); got != tt.want {
 				check := false
-				for i := 0; i < MAX_TESTS; i++ {
+				for i := 0; i < maxTests; i++ {
 					got := coin()
 					if got == tt.want {
 						check = true
@@ -332,7 +332,7 @@ func Test_downize(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := downize(tt.args.pass); got != tt.want {
 				check := false
-				for i := 0; i < MAX_TESTS*len(tt.args.pass); i++ {
+				for i := 0; i < maxTests*len(tt.args.pass); i++ {
 					got = downize(tt.args.pass)
 					if got == tt.want {
 						check = true
