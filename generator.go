@@ -52,12 +52,12 @@ func NewGenerator(t, val int, s, r bool) *Generator {
 	}
 }
 
-// Generate generates 100 passwowrds or passpgrases
-func (g *Generator) Generate() {
+// generate generates num of passwowrds or passpgrases
+func (g *Generator) generate(num int) {
 	var generated []string
 	var chanString = make(chan string, buffsize)
 
-	for i := 0; i < maxGoroutines; i++ {
+	for i := 0; i < num; i++ {
 		go func(ch chan string) {
 			var s string
 			sec := newSecret()
@@ -72,7 +72,7 @@ func (g *Generator) Generate() {
 		}(chanString)
 	}
 
-	for len(generated) < maxGoroutines {
+	for len(generated) < num {
 		select {
 		case recvd := <-chanString:
 			generated = append(generated, recvd)
@@ -82,6 +82,15 @@ func (g *Generator) Generate() {
 	}
 
 	g.Generated = generated
+}
+
+// Generate generates 100 passwowrds or passpgrases
+func (g *Generator) Generate() {
+	g.generate(maxGoroutines)
+}
+
+func (g *Generator) GenerateByValue(value int) {
+	g.generate(value)
 }
 
 // GetGenerated returns slice of generated strings
